@@ -24,7 +24,13 @@
 <script>
   var params = new URLSearchParams(window.location.search);
   var appUrl = params.get('u');
+  // Discord may double-encode %XX → %25XX. Decode until we see a scheme.
+  var tries = 3;
+  while (appUrl && !/^[a-z]+:\/\//i.test(appUrl) && tries-- > 0) {
+    try { appUrl = decodeURIComponent(appUrl); } catch(e) { break; }
+  }
   if (appUrl) {
+    document.getElementById('status').textContent = appUrl;
     window.location.href = appUrl;
     setTimeout(function() {
       document.getElementById('status').textContent = "Tap the button if the app didn't open:";
