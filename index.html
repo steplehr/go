@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opening BetMGM...</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; text-align: center; padding: 40px 20px; background: #1a1a2e; color: #fff; }
+  .box { max-width: 400px; margin: 0 auto; background: #16213e; border-radius: 12px; padding: 30px; }
+  h1 { font-size: 1.4em; margin-bottom: 10px; }
+  p { color: #aaa; font-size: 0.95em; }
+  .btn { display: inline-block; margin-top: 16px; padding: 12px 28px; background: #e63946; color: #fff; border-radius: 8px; font-size: 1em; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Opening BetMGM App...</h1>
+  <p id="status">Redirecting you now.</p>
+  <a id="manual" class="btn" style="display:none;">Tap to Open App</a>
+  <p style="margin-top:20px;font-size:0.8em;color:#666;">
+    If nothing happens, make sure the BetMGM Sportsbook app is installed.
+  </p>
+</div>
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var appUrl = params.get('u');
+  if (appUrl) {
+    window.location.href = appUrl;
+    setTimeout(function() {
+      document.getElementById('status').textContent = "Tap the button if the app didn't open:";
+      var btn = document.getElementById('manual');
+      btn.href = appUrl;
+      btn.textContent = 'Open BetMGM App';
+      btn.style.display = 'inline-block';
+    }, 1500);
+  } else {
+    document.getElementById('status').textContent = 'No app URL provided.';
+  }
+</script>
+</body>
+</html>
